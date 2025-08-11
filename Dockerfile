@@ -5,15 +5,16 @@
 # Author: muxator
 ARG BUILD_ENV=git
 
-FROM node:alpine AS adminbuild
+FROM node:lts-alpine AS adminbuild
 RUN npm install -g pnpm@latest
 WORKDIR /opt/etherpad-lite
 COPY . .
 RUN pnpm install
+RUN pnpm install -w @types/uuid
 RUN pnpm run build:ui
 
 
-FROM node:alpine AS build
+FROM node:lts-alpine AS build
 LABEL maintainer="Etherpad team, https://github.com/ether/etherpad-lite"
 
 # Set these arguments when building the image from behind a proxy
@@ -173,6 +174,21 @@ RUN bin/installDeps.sh && \
   if [ ! -z "${ETHERPAD_PLUGINS}" ] || [ ! -z "${ETHERPAD_GITHUB_PLUGINS}" ]; then \
       pnpm run plugins i ${ETHERPAD_PLUGINS} ${ETHERPAD_GITHUB_PLUGINS:+--github ${ETHERPAD_GITHUB_PLUGINS}}; \
   fi
+
+# install local plugins adding "/opt/etherpad-lite/local_plugins" to the ${ETHERPAD_LOCAL_PLUGINS}
+# ${ETHERPAD_LOCAL_PLUGINS} is a space-separated list of plugin names
+RUN if [ ! -z "${ETHERPAD_LOCAL_PLUGINS}" ]; then \
+for plugin in ${ETHERPAD_LOCAL_PLUGINS}; do \
+  echo "Installing local plugin: ${plugin}"; \
+  # check if the plugin is a local plugin
+  if [ -d "/opt/etherpad-lite/local_plugins/${plugin}" ]; then \
+      pnpm run plugins i ${ETHERPAD_LOCAL_PLUGINS:+--path "/opt/etherpad-lite/local_plugins/${plugin}"}; \
+  fi \
+done; \
+fi
+
+RUN mkdir /opt/etherpad-lite/src/plugin_packages/@types && \
+  mv /opt/etherpad-lite/src/plugin_packages/uuid /opt/etherpad-lite/src/plugin_packages/@types/uuid
 
 # Copy the configuration file.
 COPY --chown=etherpad:etherpad ${SETTINGS} "${EP_DIR}"/settings.json
