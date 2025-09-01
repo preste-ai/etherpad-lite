@@ -96,7 +96,7 @@
  * 3) if you want to use newlines in the default value of a string parameter,
  *    use "\n" as usual.
  *
- *    "defaultPadText" : "${DEFAULT_PAD_TEXT:Line 1\nLine 2}"
+ *    "defaultPadText" : "${DEFAULT_PAD_TEXT}Line 1\nLine 2"
  */
 {
   /*
@@ -170,14 +170,6 @@
    * Default option is set to true
    */
   "showSettingsInAdminPage": "${SHOW_SETTINGS_IN_ADMIN_PAGE:true}",
-
-  /*
-   * Enable/disable the metrics endpoint.
-   *
-   * This is used by the monitoring plugins to collect metrics about Etherpad.
-   * If you do not use any monitoring plugins, you can disable this.
-   */
-  "enableMetrics": "${ENABLE_METRICS:true}",
 
   /*
    * Settings for cleanup of pads
@@ -640,24 +632,22 @@
    * Uncomment to customize.
    */
 
-  /*
-  "toolbar": {
-    "left": [
-      ["bold", "italic", "underline", "strikethrough"],
-      ["orderedlist", "unorderedlist", "indent", "outdent"],
-      ["undo", "redo"],
-      ["clearauthorship"]
-    ],
-    "right": [
-      ["importexport", "timeslider", "savedrevision"],
-      ["settings", "embed", "home"],
-      ["showusers"]
-    ],
-    "timeslider": [
-      ["timeslider_export", "timeslider_returnToPad"]
-    ]
-  },
-  */
+"toolbar": {
+  "left": [
+    ["undo", "redo"],
+    ["orderedlist", "unorderedlist"],
+    ["bold", "underline"],
+
+  ],
+  "right": [["importexport", "timeslider", "savedrevision"]],
+  "timeslider": [
+    ["timeslider_export", "timeslider_returnToPad"]
+  ]
+},
+
+
+
+
 
   /*
    * Expose Etherpad version in the web interface and in the Server http header.
@@ -713,4 +703,5 @@
       "RefreshToken": 86400
   }
   */
+
 }

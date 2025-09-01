@@ -41,7 +41,7 @@
 }
 
 /* TABLE SIZE PICKER */
-#tbl_insert  {
+#tbl_insert {
   background-color: white;
   box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16), 0 8px 16px rgba(27, 39, 51, 0.08);
   border-radius: 3px;
@@ -54,7 +54,9 @@
   padding-top: 4px;
 }
 
-#tbl_insert .yuimenuitemlabel { text-align: center; }
+#tbl_insert .yuimenuitemlabel {
+  text-align: center;
+}
 
 #tbl_insert .ft {
   margin: 0;
@@ -130,7 +132,8 @@
   background-color: transparent !important;
 }
 
-.yui-panel .underlay, .yui-skin-sam .yui-panel-container.shadow .underlay {
+.yui-panel .underlay,
+.yui-skin-sam .yui-panel-container.shadow .underlay {
   display: none !important;
 }
 
@@ -151,7 +154,9 @@
   border-radius: 3px;
   text-transform: uppercase;
 }
-#tbl_btn_close:hover { cursor: pointer; }
+#tbl_btn_close:hover {
+  cursor: pointer;
+}
 
 .yui-skin-sam .yui-button {
   background: none;
@@ -162,7 +167,10 @@
   margin-top: 5px;
 }
 
-.yui-skin-sam .yui-button .first-child { margin: 0; border: none; }
+.yui-skin-sam .yui-button .first-child {
+  margin: 0;
+  border: none;
+}
 
 .yui-skin-sam .yui-split-button button {
   padding: 0;
@@ -189,14 +197,16 @@ button .color-picker-button {
   margin-top: 2px;
 }
 
-#even-row-bg-color, #single-row-bg-color {
+#even-row-bg-color,
+#single-row-bg-color {
   margin-right: 5px;
 }
-#single-col-bg-color, #odd-row-bg-color {
+#single-col-bg-color,
+#odd-row-bg-color {
   margin-left: 7px;
 }
 
-#yui-tbl-prop-panel .text-input[type=text] {
+#yui-tbl-prop-panel .text-input[type="text"] {
   border: 1px solid #d2d2d2;
   float: right;
   height: 10px;
@@ -205,7 +215,8 @@ button .color-picker-button {
 }
 
 #text_input_message {
-  background-color: #64d29b;
+  /* background-color: #64d29b; */
+  background-color: #9160a5;
   padding: 0 5px;
   color: white;
   font-size: 12px;
@@ -215,12 +226,11 @@ button .color-picker-button {
 }
 
 /* TABLES INSIDE THE PAD */
-td[name=tData] {
+td[name="tData"] {
   /*border: 1px solid grey !important;*/
 }
 
-#yui-picker-panel_c
-{
+#yui-picker-panel_c {
   padding-bottom: 40px;
 }
 

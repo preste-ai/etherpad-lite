@@ -12,7 +12,9 @@
   margin-top: 10px;
 }
 .suggestion-display .from-value, .suggestion-display .to-value {
-  color: #64d29b;
+  /* color: #64d29b; */
+  color: #9160a5;
+  --primary-color:
   color: var(--primary-color);
   font-weight: bold;
   opacity: 1;

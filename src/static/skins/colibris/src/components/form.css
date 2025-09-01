@@ -1,11 +1,15 @@
-input[type="text"], select, textarea, .nice-select {
+input[type="text"],
+select,
+textarea,
+.nice-select {
   border-radius: 3px;
   box-shadow: none;
   border: none;
   outline: 0;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
   padding: 8px 10px;
   background-color: #f2f3f4;
   background-color: var(--bg-soft-color);
@@ -13,11 +17,13 @@ input[type="text"], textarea {
   color: #485365;
   color: var(--text-color);
 }
-input[type="text"]::placeholder, textarea::placeholder {
+input[type="text"]::placeholder,
+textarea::placeholder {
   color: #576273;
   color: var(--text-soft-color);
 }
-select, .nice-select {
+select,
+.nice-select {
   background-color: #f2f3f4;
   background-color: var(--bg-soft-color);
   border: 1px solid var(--bg-soft-color);
@@ -26,14 +32,17 @@ select, .nice-select {
   font-weight: bold;
   line-height: inherit;
 }
-select:hover, .nice-select:hover {
-  border-color: var(--bg-soft-color)
+select:hover,
+.nice-select:hover {
+  border-color: var(--bg-soft-color);
 }
 .nice-select .list {
   background-color: #f2f3f4;
   background-color: var(--bg-soft-color);
 }
-.nice-select .option:hover,.nice-select .option.focus,.nice-select .option.selected.focus {
+.nice-select .option:hover,
+.nice-select .option.focus,
+.nice-select .option.selected.focus {
   background-color: #ffffff;
   background-color: var(--bg-color);
 }
@@ -44,7 +53,6 @@ select:hover, .nice-select:hover {
   right: 0;
   left: auto;
 }
-
 
 /* Checkboxes
    ========================================================================== */
@@ -68,10 +76,10 @@ select:hover, .nice-select:hover {
 
 [type="checkbox"] + label:before,
 [type="checkbox"] + label:after {
-  content: '';
+  content: "";
   position: absolute;
   margin-top: 4px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 /* BEFORE, the container*/
@@ -85,11 +93,12 @@ select:hover, .nice-select:hover {
   border: 2px solid var(--text-soft-color);
   background-color: #f2f3f4;
   background-color: var(--bg-soft-color);
-  opacity: .7;
+  opacity: 0.7;
 }
 [type="checkbox"]:checked + label:before {
   background-color: transparent;
-  border-color: #64d29b;
+  /* border-color: #64d29b; */
+  border-color: #9160a5;
   border-color: var(--primary-color);
 }
 
@@ -104,7 +113,8 @@ select:hover, .nice-select:hover {
   left: -3px;
 }
 [type="checkbox"]:checked + label:after {
-  background-color: #64d29b;
+  /* background-color: #64d29b; */
+  background-color: #9160a5;
   background-color: var(--primary-color);
   transform: translateX(14px);
 }
@@ -113,5 +123,5 @@ select:hover, .nice-select:hover {
 [type="checkbox"]:checked:disabled + label:before,
 [type="checkbox"]:checked:disabled + label:after {
   cursor: not-allowed;
-  opacity: .4;
+  opacity: 0.4;
 }

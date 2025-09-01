@@ -13,6 +13,12 @@
 @import url("pad/loadingbox.css");
 @import url("pad/form.css");
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Arial", "Roboto", sans-serif;
+}
+
 html {
   font-size: 15px;
   color: #3e3e3e;
@@ -24,7 +30,7 @@ html,
 }
 
 .clear {
-  clear: both
+  clear: both;
 }
 a {
   color: inherit;
@@ -32,7 +38,7 @@ a {
   white-space: nowrap;
 }
 a img {
-  border: 0
+  border: 0;
 }
 
 .thin-scrollbar::-webkit-scrollbar-track {
@@ -43,39 +49,159 @@ a img {
   width: 7px;
 }
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #C5C5C5;
+  background-color: #c5c5c5;
 }
 
 .buttontext::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
-.buttontext:focus{
+.buttontext:focus {
   /* Not sure why important is required here but it is */
   border: 1px solid #666 !important;
 }
 .rtl {
-  direction: RTL
+  direction: RTL;
 }
 
 /* fix for misaligned checkboxes */
-input[type=checkbox] {
-  vertical-align: -1px
+input[type="checkbox"] {
+  vertical-align: -1px;
 }
 input {
   color: inherit;
 }
 .right {
-  float: right
+  float: right;
 }
 
 @media (max-width: 800px) {
-  .hide-for-mobile { display: none; }
+  .hide-for-mobile {
+    display: none;
+  }
+}
+.ep-align-left {
+  float: left;
+  margin-right: 1em;
+}
+.ep-align-right {
+  float: right;
+  margin-left: 1em;
+}
+.ep-align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
 }
 
-.etherpadBrand{
-  width:20%;
-  max-width:100px;
-  margin-left:auto;
-  margin-right:auto;
+.coordinator.assigned {
+  background-color: #ffb5d1;
+  /* border-left: 0.3rem solid #d6308d; */
+}
+.coordinator.assigned:has(.readOnly),
+.readOnly:has(.coordinator.assigned),
+.coordinator.assigned:has(.editable),
+.editable .coordinator.assigned {
+  background-color: #ffffff;
+  border-left: 0;
+}
+/* .assigned.editable {
+  background-color: none;
+  border-left: none;
+} */
+
+/* .assigned.hidden {
+  visibility: hidden !important;
+}
+.hidden {
+  visibility: hidden !important;
+  background-color: red !important;
+} */
+.assigned {
+  display: inline-block !important;
+  position: relative;
+  pointer-events: auto !important;
+}
+.coordinator.assigned.readOnly,
+.coordinator.assigned.readOnly,
+.readOnly .coordinator.assigned {
+  pointer-events: none;
+  background-color: none;
+  border-left: none;
+}
+/* Tooltip text box */
+.coordinator.assigned[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  left: 50%;
+  /* transform: translateX(-50%); */
+  background-color: #f2f3f4;
+  color: #14568c;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  white-space: nowrap;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
+  z-index: 10000;
+  border: 0.01rem solid #14568c;
+}
+
+/* Tooltip arrow */
+.coordinator.assigned[data-tooltip]::before {
+  content: "";
+  position: absolute;
+  /* bottom: 0%; /* just below the tooltip box */
+  /* left: 100%;
+  left: 50%;  */
+  /* transform: translateX(-50%); */
+  /* border-width: 0.3rem;
+  border-style: solid;
+  border-color: #14568c transparent transparent transparent; */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 10000;
+
+  bottom: 74%;
+  left: 49%;
+  border-width: 0.3rem;
+  border-style: solid;
+  border-color: transparent #14568c transparent transparent;
+}
+.editable .coordinator.assigned[data-tooltip]::after,
+.editable .coordinator.assigned[data-tooltip]::before,
+.editable + ::after,
+.editable::after {
+  display: none;
+}
+/* Show tooltip on hover */
+.coordinator.assigned:hover[data-tooltip]::after,
+.coordinator.assigned:hover[data-tooltip]::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hidden,
+div span:has(.hidden),
+div:has(.hidden) {
+  display: none !important;
+}
+
+.readOnly {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+}
+
+.editable {
+  pointer-events: auto;
+}
+.red-text {
+  color: red !important;
 }

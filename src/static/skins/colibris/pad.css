@@ -23,6 +23,7 @@
 @import url("src/plugins/comments.css");
 
 @import url("src/pad-variants.css");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 /* -----------------------------------------------------------------
  * COLORS
@@ -34,7 +35,8 @@
   --super-dark-color: #485365; /*#374256;*/
   --dark-color: #576273; /*#4d5d77*/
 
-  --primary-color: #64d29b;
+  /* --primary-color: #64d29b; */
+  --primary-color:: #9160a5;
   --middle-color: #d2d2d2; /* kind of grey, use for border for examples */
 
   --light-color: #f2f3f4; /*#f9f9f9;*/
@@ -55,7 +57,7 @@
   --editor-vertical-padding: 25px;
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   :root {
     --editor-horizontal-padding: 0px;
     --editor-vertical-padding: 0px;
@@ -67,4 +69,5 @@ body {
   --scrollbar-bg: var(--light-color);
   --scrollbar-track: var(--super-light-color);
   --scrollbar-thumb: var(--dark-color);
+  font-family: Calibri, "Roboto", Arial, sans-serif;
 }
