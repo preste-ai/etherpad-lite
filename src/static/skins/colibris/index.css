@@ -1,7 +1,7 @@
 #button,
 body,
 form {
-  border: none
+  border: none;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
   margin-top: 0;
   padding: 0;
   background: 0 0;
-  box-shadow: none
+  box-shadow: none;
 }
 
 input {
@@ -34,12 +34,12 @@ input {
   width: 350px;
   max-width: 350px;
   text-align: center;
-  color:#FFF;
+  color: #fff;
 }
 
 #label {
   text-shadow: none;
-  color: #FFF;
+  color: #fff;
   font-weight: normal;
   text-align: center;
 }
@@ -51,7 +51,8 @@ input {
   text-shadow: none;
   font-size: 23px;
   line-height: 1.8;
-  color: #64d29b;
+  /* color: #64d29b; */
+  color: #9160a5;
   background: #586a69;
   border-radius: 3px;
   box-shadow: none;
@@ -60,24 +61,25 @@ input {
   display: block;
 }
 
-
-button[type=submit] {
+button[type="submit"] {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   left: 305px;
-  color: #64d29b;
+  /* color: #64d29b; */
+  color: #9160a5;
   background: #586a69;
   border: none;
   top: 0;
   opacity: 1;
-  transition: .2s background;
+  transition: 0.2s background;
 }
 
 #button:hover,
-button[type=submit]:hover {
+button[type="submit"]:hover {
   cursor: pointer;
   background: #4a5d5c;
-  color: #64d29b;
+  /* color: #64d29b; */
+  color: #9160a5;
 }
 
 #padname {

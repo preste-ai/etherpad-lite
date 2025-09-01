@@ -8,6 +8,9 @@
   justify-content: space-between;
   padding: 0px 5px 5px 5px;
   flex-shrink: 0;
+  /* mine */
+  /* background-color: #12427957 !important;
+  color: #124279 !important; */
 }
 .toolbar ul {
   list-style: none;
@@ -17,11 +20,15 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+
+  color: #14568c;
+  border-radius: 0.3rem;
 }
 .toolbar ul.menu_right {
   flex-shrink: 0; /* prevent from shrinking */
 }
-.toolbar ul li, .toolbar ul > div {
+.toolbar ul li,
+.toolbar ul > div {
   display: flex; /* transfer flexbox positionning to children */
 }
 .toolbar ul li {
@@ -43,9 +50,10 @@
   cursor: pointer;
   overflow: hidden;
   text-decoration: none;
-  transition: background-color .1s;
+  transition: background-color 0.1s;
 }
-.toolbar ul li a.pressed button:active, .toolbar ul li a.pressed button:focus {
+.toolbar ul li a.pressed button:active,
+.toolbar ul li a.pressed button:focus {
   outline: 0;
   border: none;
 }
@@ -53,7 +61,8 @@
   text-decoration: none;
   background-color: #f2f2f2;
 }
-.toolbar ul li a:active, .toolbar ul li a:focus {
+.toolbar ul li a:active,
+.toolbar ul li a:focus {
   background: #ddd;
 }
 .toolbar ul li a.selected {
@@ -72,13 +81,13 @@
   border-left: 0;
 }
 
-.toolbar ul li[data-key=showusers] > a {
+.toolbar ul li[data-key="showusers"] > a {
   min-width: 35px;
 }
-.toolbar ul li[data-key=showusers] > a .buttonicon-showusers {
+.toolbar ul li[data-key="showusers"] > a .buttonicon-showusers {
   padding-left: 3px;
 }
-.toolbar ul li[data-key=showusers] > a #online_count {
+.toolbar ul li[data-key="showusers"] > a #online_count {
   font-weight: bold;
   font-size: 11px;
   position: relative;
@@ -98,7 +107,7 @@
 }
 
 .toolbar .show-more-icon-btn {
-  display:none;
+  display: none;
   cursor: pointer;
   height: 39px;
   width: 39px;
@@ -113,6 +122,8 @@
   width: calc(100% - 39px);
   height: 33px;
   flex-wrap: wrap;
+
+  width: 100%;
 }
 .toolbar.cropped .show-more-icon-btn {
   display: block;
@@ -133,6 +144,8 @@
 .toolbar.full-icons .menu_left {
   height: auto !important;
   overflow: visible;
+
+  width: 100%;
 }
 
 @media only screen and (max-width: 800px) {
@@ -144,12 +157,14 @@
 /* menu_right act like a new toolbar on the bottom of the screen */
 .mobile-layout .toolbar .menu_right {
   position: fixed;
-  bottom: 0;
+  /* bottom: 0; */
   right: 0;
-  left: 0;
-  border-top: 1px solid #ccc;
+  /* left: 0; */
+  /* border-top: 1px solid #ccc; */
   background-color: #f4f4f4;
   padding: 0 5px 5px 5px;
+  top: 0;
+  border-radius: 0.3rem;
 }
 .mobile-layout .toolbar ul.menu_right > li {
   margin-right: 8px;
@@ -175,4 +190,20 @@
 }
 .mobile-layout .toolbar ul.menu_right > li a:not(.selected) {
   background-color: transparent;
+}
+
+/* .toolbar .menu_right,
+.mobile-layout .toolbar .menu_right {
+  display: none;
+} */
+.show-more-icon-btn {
+  display: none !important;
+}
+
+#hide-user-button {
+  color: rgb(20, 86, 140);
+  padding: 0.5rem;
+}
+#hide-user-button:hover {
+  color: #9160a5;
 }

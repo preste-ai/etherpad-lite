@@ -2,9 +2,10 @@
   These CSS rules are included in both the outer and inner ACE iframe (pad editor)
 */
 
-@import url('./lists_and_indents.css');
+@import url("./lists_and_indents.css");
 
-html.outer-editor, html.inner-editor {
+html.outer-editor,
+html.inner-editor {
   background-color: transparent !important;
 }
 #outerdocbody {
@@ -44,7 +45,8 @@ html.outer-editor, html.inner-editor {
   min-height: 100vh;
 }
 
-#innerdocbody, #sidediv {
+#innerdocbody,
+#sidediv {
   /* Both must have the same top padding to line up line numbers */
   padding-top: 15px;
   /* Some space when we scroll to the bottom */
@@ -54,7 +56,7 @@ html.outer-editor, html.inner-editor {
 #innerdocbody a {
   color: #2e96f3;
 }
-#innerdocbody.authorColors [class^='author-'] a {
+#innerdocbody.authorColors [class^="author-"] a {
   color: inherit;
 }
 
@@ -67,7 +69,7 @@ option {
 #innerdocbody h3,
 #innerdocbody h4 {
   line-height: 1.2;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 #innerdocbody h1 span,
 #innerdocbody h2 span,
@@ -80,13 +82,13 @@ option {
 /* -- BROWSER SUPPORT -- */
 /* --------------------- */
 
-body.mozilla, body.safari {
+body.mozilla,
+body.safari {
   display: table-cell; /* cause "body" area (e.g. where clicks are heard) to grow horizontally with text */
 }
 .safari div {
   padding-right: 1px; /* prevents the caret from disappearing on the longest line of the doc */
 }
-
 
 /* ------------------------------------------ */
 /* -- SIDEDIV (line number, text author..) -- */
@@ -107,9 +109,10 @@ body.mozilla, body.safari {
 }
 #sidedivinner {
   text-align: right;
-  opacity: .9;
+  opacity: 0.9;
 }
-#sidediv:not(.sidedivdelayed) { /* before sidediv get initialized, hide text */
+#sidediv:not(.sidedivdelayed) {
+  /* before sidediv get initialized, hide text */
   color: transparent;
 }
 .line-numbers-hidden #sidediv .line-number {
@@ -134,9 +137,6 @@ body.mozilla, body.safari {
   }
 }
 
-
-
-
 /* ----------- */
 /* -- OTHER -- */
 /* ----------- */
@@ -150,3 +150,12 @@ body.mozilla, body.safari {
 #innerdocbody a {
   cursor: pointer !important;
 }
+
+/* #innerdocbody img { */
+/* max-width: 20%;
+  height: auto;
+  display: inline-block;
+} */
+/* #innerdocbody .hidden {
+  visibility: hidden;
+} */

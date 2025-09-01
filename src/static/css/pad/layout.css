@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   width: 100%;
   height: auto;
   margin: 0;
@@ -6,7 +7,8 @@ html, body {
 }
 
 /* used in pad and timeslider */
-html.pad, html.pad body {
+html.pad,
+html.pad body {
   overflow: hidden;
   height: 100%;
 }
@@ -16,6 +18,8 @@ body {
 }
 #editbar {
   height: auto;
+  /* margin: 1rem auto 0; */
+  margin: 1rem auto;
 }
 #editorcontainerbox {
   flex: 1 auto;
@@ -39,7 +43,8 @@ body {
   width: 100%;
   height: auto;
 }
-#editorcontainerbox .sticky-container { /* container for #users, #chat, #toc (table of content) and so on... */
+#editorcontainerbox .sticky-container {
+  /* container for #users, #chat, #toc (table of content) and so on... */
   display: flex;
   flex-direction: column;
   width: 200px;
@@ -52,4 +57,8 @@ body {
 
 .mobile-layout #editorcontainerbox {
   margin-bottom: 39px; /* Leave space for the bottom toolbar on mobile */
+}
+
+.role-coordinator #editorcontainer iframe html.inner-editor body#innerdocbody div span.assigned {
+  background: red;
 }

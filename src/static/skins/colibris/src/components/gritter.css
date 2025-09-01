@@ -1,8 +1,9 @@
-.gritter-item:not(.error) .popup-content{
-  background-color: #64d29b;
-  background-color: var(--primary-color);
+.gritter-item:not(.error) .popup-content {
+  /* background-color: #64d29b; */
+  background-color: #9160a5;
+  /* background-color: var(--primary-color); */
   color: #ffffff;
-  color: var(--super-light-color);
+  /* color: var(--super-light-color); */
 }
 .gritter-item .popup-content {
   padding: 15px;
