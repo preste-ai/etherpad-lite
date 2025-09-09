@@ -646,9 +646,6 @@
 },
 
 
-
-
-
   /*
    * Expose Etherpad version in the web interface and in the Server http header.
    *
@@ -701,7 +698,17 @@
       "ClientCredentials": 3600,
       "IdToken": 3600,
       "RefreshToken": 86400
-  }
+  },
   */
 
+"ep_images_extended": {
+     "storage": {               
+       "type": "base64" 
+     },
+     "fileTypes": ["jpeg", "jpg", "png", "gif", "bmp", "webp"],
+     "maxFileSize": 5000000
+   },
+ "padOptions":{
+  "lang":"fr-FR"
+ }
 }
