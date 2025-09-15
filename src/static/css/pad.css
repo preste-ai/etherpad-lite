@@ -104,9 +104,8 @@ input {
 .readOnly:has(.coordinator.assigned),
 .coordinator.assigned:has(.editable),
 .editable .coordinator.assigned,
-.editable span,
-.editable {
-  background-color: #ffffff !important;
+.editable span {
+  background-color: #ffffff;
   border-left: 0;
 }
 /* .assigned.editable {
@@ -126,6 +125,11 @@ input {
   position: relative;
   pointer-events: auto !important;
 }
+.editable .assigned,
+.assigned .editable {
+  background-color: #ffffff !important;
+}
+
 .assigned[data-tooltip] {
   position: relative;
 }
@@ -213,7 +217,7 @@ div:has(.hidden) {
 .readOnly {
   pointer-events: none;
   user-select: none;
-  opacity: 0.7;
+  /* opacity: 0.7; */
 }
 
 .editable {
