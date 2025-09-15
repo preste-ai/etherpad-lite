@@ -20,6 +20,8 @@ body {
   height: auto;
   /* margin: 1rem auto 0; */
   margin: 1rem auto;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.3rem;
 }
 #editorcontainerbox {
   flex: 1 auto;

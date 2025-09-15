@@ -95,14 +95,16 @@ input {
   float: none;
 }
 
-.coordinator.assigned {
+.coordinator.assigned,
+.assigned {
   background-color: #ffb5d1;
   /* border-left: 0.3rem solid #d6308d; */
 }
 .coordinator.assigned:has(.readOnly),
 .readOnly:has(.coordinator.assigned),
 .coordinator.assigned:has(.editable),
-.editable .coordinator.assigned {
+.editable .coordinator.assigned,
+.editable span {
   background-color: #ffffff;
   border-left: 0;
 }
@@ -123,6 +125,45 @@ input {
   position: relative;
   pointer-events: auto !important;
 }
+.editable .assigned,
+.assigned .editable {
+  background-color: #ffffff !important;
+}
+
+.assigned[data-tooltip] {
+  position: relative;
+}
+
+/* The tooltip */
+.assigned[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  left: 400px;
+  background-color: #f2f3f4;
+  color: #14568c;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 9999;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  display: none;
+  font-size: 1rem;
+  border: 0.01rem solid #14568c;
+}
+
+.assigned[data-tooltip]:hover::after {
+  display: inline;
+}
+
 .coordinator.assigned.readOnly,
 .coordinator.assigned.readOnly,
 .readOnly .coordinator.assigned {
@@ -131,14 +172,14 @@ input {
   border-left: none;
 }
 /* Tooltip text box */
-.coordinator.assigned[data-tooltip]::after {
+/* .coordinator.assigned[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   top: 0%;
   left: 100%;
   left: 50%;
   /* transform: translateX(-50%); */
-  background-color: #f2f3f4;
+/* background-color: #f2f3f4;
   color: #14568c;
   padding: 0.5rem;
   border-radius: 0.3rem;
@@ -150,34 +191,14 @@ input {
   box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
   z-index: 10000;
   border: 0.01rem solid #14568c;
-}
+} */
 
-/* Tooltip arrow */
-.coordinator.assigned[data-tooltip]::before {
-  content: "";
-  position: absolute;
-  /* bottom: 0%; /* just below the tooltip box */
-  /* left: 100%;
-  left: 50%;  */
-  /* transform: translateX(-50%); */
-  /* border-width: 0.3rem;
-  border-style: solid;
-  border-color: #14568c transparent transparent transparent; */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 10000;
-
-  bottom: 74%;
-  left: 49%;
-  border-width: 0.3rem;
-  border-style: solid;
-  border-color: transparent #14568c transparent transparent;
-}
 .editable .coordinator.assigned[data-tooltip]::after,
 .editable .coordinator.assigned[data-tooltip]::before,
 .editable + ::after,
-.editable::after {
+.editable::after,
+.editable .assigned[data-tooltip]::after,
+.editable span[data-tooltip]::after {
   display: none;
 }
 /* Show tooltip on hover */
@@ -196,7 +217,7 @@ div:has(.hidden) {
 .readOnly {
   pointer-events: none;
   user-select: none;
-  opacity: 0.7;
+  /* opacity: 0.7; */
 }
 
 .editable {
