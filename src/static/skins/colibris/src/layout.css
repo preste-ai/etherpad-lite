@@ -14,8 +14,10 @@
   width: 250px;
 }
 
-#outerdocbody iframe, #outerdocbody > #innerdocbody {
+#outerdocbody iframe,
+#outerdocbody > #innerdocbody {
   max-width: 900px;
+  max-width: 210mm;
   padding: 40px 55px;
   padding-left: var(--editor-horizontal-padding);
   padding-right: var(--editor-horizontal-padding);
@@ -37,11 +39,12 @@
   padding-bottom: calc(var(--editor-vertical-padding) + 15px);
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   #outerdocbody {
     padding-top: 0;
   }
-  #outerdocbody iframe, #outerdocbody > #innerdocbody {
+  #outerdocbody iframe,
+  #outerdocbody > #innerdocbody {
     max-width: none;
     border-radius: 0;
   }
