@@ -303,7 +303,7 @@
    * If this option is enabled, a user must have a session to access pads.
    * This effectively allows only group pads to be accessed.
    */
-  "requireSession": "${REQUIRE_SESSION:false}",
+  "requireSession": "${REQUIRE_SESSION:true}",
 
   /*
    * Users may edit pads but not create new ones.
@@ -311,7 +311,7 @@
    * Pad creation is only via the API.
    * This applies both to group pads and regular pads.
    */
-  "editOnly": "${EDIT_ONLY:false}",
+  "editOnly": "${EDIT_ONLY:true}",
 
   /*
    * If true, all css & js will be minified before sending to the client.

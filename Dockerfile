@@ -10,7 +10,7 @@ RUN npm install -g pnpm@latest
 WORKDIR /opt/etherpad-lite
 COPY . .
 RUN pnpm install
-RUN pnpm install -w @types/uuid
+RUN pnpm install -w uuid
 RUN pnpm run build:ui
 
 
@@ -144,7 +144,7 @@ COPY --chown=etherpad:etherpad --from=adminbuild /opt/etherpad-lite/src/static/o
 
 COPY --chown=etherpad:etherpad ./local_plugin[s] ./local_plugins/
 
-RUN bash -c ./bin/installLocalPlugins.sh
+# RUN bash -c ./bin/installLocalPlugins.sh
 
 RUN bin/installDeps.sh && \
   if [ ! -z "${ETHERPAD_PLUGINS}" ] || [ ! -z "${ETHERPAD_GITHUB_PLUGINS}" ]; then \
@@ -168,7 +168,7 @@ COPY --chown=etherpad:etherpad --from=adminbuild /opt/etherpad-lite/src/static/o
 
 COPY --chown=etherpad:etherpad ./local_plugin[s] ./local_plugins/
 
-RUN bash -c ./bin/installLocalPlugins.sh
+# RUN bash -c ./bin/installLocalPlugins.sh
 
 RUN bin/installDeps.sh && \
   if [ ! -z "${ETHERPAD_PLUGINS}" ] || [ ! -z "${ETHERPAD_GITHUB_PLUGINS}" ]; then \
@@ -187,8 +187,12 @@ for plugin in ${ETHERPAD_LOCAL_PLUGINS}; do \
 done; \
 fi
 
-RUN mkdir /opt/etherpad-lite/src/plugin_packages/@types && \
-  mv /opt/etherpad-lite/src/plugin_packages/uuid /opt/etherpad-lite/src/plugin_packages/@types/uuid
+# some plugins require this some not
+RUN if [ -d "/opt/etherpad-lite/src/plugin_packages/uuid" ]; then \
+  mkdir /opt/etherpad-lite/src/plugin_packages/@types && \
+  mv /opt/etherpad-lite/src/plugin_packages/uuid /opt/etherpad-lite/src/plugin_packages/@types/uuid; \
+fi
+
 
 # Copy the configuration file.
 COPY --chown=etherpad:etherpad ${SETTINGS} "${EP_DIR}"/settings.json
