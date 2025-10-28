@@ -21,6 +21,7 @@ const contentcollector = require('../../static/js/contentcollector');
 import jsdom from 'jsdom';
 import {PadType} from "../types/PadType";
 import {Builder} from "../../static/js/Builder";
+import {convertHtmlTableToEpDataTables} from './TableConverter';
 
 const apiLogger = log4js.getLogger('ImportHtml');
 let processor:any;
@@ -31,6 +32,11 @@ exports.setPadHTML = async (pad: PadType, html:string, authorId = '') => {
         await Promise.all([import('rehype'), import('rehype-minify-whitespace')]);
     processor = rehype().use(minifyWhitespace, {newlines: false});
   }
+
+  // Convert HTML tables to Etherpad data-tables
+  html = convertHtmlTableToEpDataTables(html);
+
+  // Process the HTML with rehype to minify whitespace
 
   html = String(await processor.process(html));
   const {window: {document}} = new jsdom.JSDOM(html);

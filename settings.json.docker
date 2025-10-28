@@ -639,7 +639,7 @@
     ["bold", "underline"],
 
   ],
-  "right": [["importexport", "timeslider", "savedrevision"]],
+  "right": [["timeslider", "savedrevision"]],
   "timeslider": [
     ["timeslider_export", "timeslider_returnToPad"]
   ]
