@@ -154,14 +154,13 @@ input {
   border-radius: 0.3rem;
   font-size: 14px;
   font-family: Arial, sans-serif;
-  white-space: nowrap;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   pointer-events: none;
   transition: all 0.2s ease;
   z-index: 9999;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
-  white-space: nowrap;
+  white-space: break-spaces;
   display: none;
   font-size: 1rem;
   border: 0.01rem solid #14568c;
