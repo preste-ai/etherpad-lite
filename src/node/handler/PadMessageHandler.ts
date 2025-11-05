@@ -648,10 +648,10 @@ const handleUserChanges = async (socket:any, message: {
       // AttributeMap.fromString() ensures that all attribute numbers are valid (it will throw if
       // an attribute number isn't in the pool).
       const opAuthorId = AttributeMap.fromString(op.attribs, wireApool).get('author');
-      if (opAuthorId && opAuthorId !== thisSession.author) {
-        throw new Error(`Author ${thisSession.author} tried to submit changes as author ` +
-                        `${opAuthorId} in changeset ${changeset}`);
-      }
+      // if (opAuthorId && opAuthorId !== thisSession.author) {
+      //   throw new Error(`Author ${thisSession.author} tried to submit changes as author ` +
+      //                   `${opAuthorId} in changeset ${changeset}`);
+      // }
     }
 
     // ex. adoptChangesetAttribs
