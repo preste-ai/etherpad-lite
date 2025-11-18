@@ -97,7 +97,7 @@ input {
 
 .coordinator.assigned,
 .assigned {
-  background-color: #ffb5d1;
+  /* background-color: #ffb5d1; */
   padding-bottom: 0;
   white-space: pre;
 }
@@ -109,12 +109,12 @@ input {
 .editable span,
 .assigned:has(.editable),
 .assigned.editable {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   /* border-left: 0; */
   padding-bottom: none;
 }
 .editable {
-  background-color: #ffffff !important;
+  /* background-color: #ffffff !important; */
 }
 /* .assigned.editable {
   background-color: none;
@@ -136,7 +136,7 @@ input {
 }
 .editable .assigned,
 .assigned .editable {
-  background-color: #ffffff !important;
+  /* background-color: #ffffff !important; */
 }
 
 .assigned[data-tooltip] {
@@ -171,7 +171,7 @@ input {
 .assigned[data-tooltip]:hover::after {
   display: inline;
 }
-
+/* 
 .coordinator.assigned.readOnly,
 .coordinator.assigned.readOnly,
 .readOnly .coordinator.assigned {
@@ -179,7 +179,7 @@ input {
   background-color: none;
   border-left: none;
   white-space: pre;
-}
+} */
 /* Tooltip text box */
 /* .coordinator.assigned[data-tooltip]::after {
   content: attr(data-tooltip);
@@ -202,7 +202,7 @@ input {
   border: 0.01rem solid #14568c;
 } */
 
-.editable .coordinator.assigned[data-tooltip]::after,
+/* .editable .coordinator.assigned[data-tooltip]::after,
 .editable .coordinator.assigned[data-tooltip]::before,
 .editable + ::after,
 .editable::after,
@@ -211,13 +211,13 @@ input {
   display: none;
 }
 /* Show tooltip on hover */
-.coordinator.assigned:hover[data-tooltip]::after,
+/* .coordinator.assigned:hover[data-tooltip]::after,
 .coordinator.assigned:hover[data-tooltip]::before {
   opacity: 1;
   pointer-events: auto;
-}
+} */
 
-.hidden,
+/* .hidden,
 div span:has(.hidden),
 div:has(.hidden) {
   display: none !important;
@@ -227,8 +227,8 @@ div:has(.hidden) {
   pointer-events: none;
   user-select: none;
   /* opacity: 0.7; */
-}
+/* }
 
 .editable {
   pointer-events: auto;
-}
+} */

@@ -60,7 +60,3 @@ body {
 .mobile-layout #editorcontainerbox {
   margin-bottom: 39px; /* Leave space for the bottom toolbar on mobile */
 }
-
-.role-coordinator #editorcontainer iframe html.inner-editor body#innerdocbody div span.assigned {
-  background: red;
-}
