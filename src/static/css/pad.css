@@ -95,140 +95,38 @@ input {
   float: none;
 }
 
-.coordinator.assigned,
-.assigned {
-  /* background-color: #ffb5d1; */
-  padding-bottom: 0;
-  white-space: pre;
-}
-.coordinator.assigned:has(.readOnly),
-.readOnly:has(.coordinator.assigned),
-.coordinator.assigned:has(.editable),
-.assigned:has(.assigned:has(.editable)),
-.editable .coordinator.assigned,
-.editable span,
-.assigned:has(.editable),
-.assigned.editable {
-  /* background-color: #ffffff; */
-  /* border-left: 0; */
-  padding-bottom: none;
-}
-.editable {
-  /* background-color: #ffffff !important; */
-}
-/* .assigned.editable {
-  background-color: none;
-  border-left: none;
-} */
-
-/* .assigned.hidden {
-  visibility: hidden !important;
-}
-.hidden {
-  visibility: hidden !important;
-  background-color: red !important;
-} */
-.assigned {
+span.assigned {
   display: inline-block !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
   position: relative;
-  pointer-events: auto !important;
-  white-space: pre;
-}
-.editable .assigned,
-.assigned .editable {
-  /* background-color: #ffffff !important; */
+  border-bottom: none !important;
 }
 
-.assigned[data-tooltip] {
-  position: relative;
-}
-
-/* The tooltip */
 .assigned[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  top: 100%;
-  left: 100%;
-  left: 400px;
+  bottom: 50%;
+  left: 50%;
+  transform: translateY(-0.3rem);
   background-color: #f2f3f4;
   color: #14568c;
   padding: 0.5rem;
   border-radius: 0.3rem;
-  font-size: 14px;
+  font-size: 1rem;
   font-family: Arial, sans-serif;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
   pointer-events: none;
+  opacity: 0;
   transition: all 0.2s ease;
   z-index: 9999;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
-  white-space: break-spaces;
-  display: none;
-  font-size: 1rem;
+  white-space: nowrap;
   border: 0.01rem solid #14568c;
+  min-width: 10rem;
+  white-space: break-spaces;
 }
 
 .assigned[data-tooltip]:hover::after {
-  display: inline;
-}
-/* 
-.coordinator.assigned.readOnly,
-.coordinator.assigned.readOnly,
-.readOnly .coordinator.assigned {
-  pointer-events: none;
-  background-color: none;
-  border-left: none;
-  white-space: pre;
-} */
-/* Tooltip text box */
-/* .coordinator.assigned[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 0%;
-  left: 100%;
-  left: 50%;
-  /* transform: translateX(-50%); */
-/* background-color: #f2f3f4;
-  color: #14568c;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  white-space: nowrap;
-  font-size: 1rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.06);
-  z-index: 10000;
-  border: 0.01rem solid #14568c;
-} */
-
-/* .editable .coordinator.assigned[data-tooltip]::after,
-.editable .coordinator.assigned[data-tooltip]::before,
-.editable + ::after,
-.editable::after,
-.editable .assigned[data-tooltip]::after,
-.editable span[data-tooltip]::after {
-  display: none;
-}
-/* Show tooltip on hover */
-/* .coordinator.assigned:hover[data-tooltip]::after,
-.coordinator.assigned:hover[data-tooltip]::before {
   opacity: 1;
-  pointer-events: auto;
-} */
-
-/* .hidden,
-div span:has(.hidden),
-div:has(.hidden) {
-  display: none !important;
 }
-
-.readOnly {
-  pointer-events: none;
-  user-select: none;
-  /* opacity: 0.7; */
-/* }
-
-.editable {
-  pointer-events: auto;
-} */
