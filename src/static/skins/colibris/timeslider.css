@@ -40,8 +40,9 @@
   /* color: #64d29b; */
   color: #9160a5;
   color: var(--primary-color);
+  color: #fff;
   /* border-color: #64d29b; */
-  background-color: #9160a5;
+  background-color: #14568c;
   border-color: var(--primary-color);
 }
 #slider-btn-container .stepper.disabled {
@@ -49,10 +50,10 @@
 }
 
 .timeslider #editbar .buttontext {
-  background-color: #576273;
-  background-color: var(--text-soft-color);
+  background-color: #14568c;
+  /* background-color: var(--text-soft-color); */
   color: #ffffff;
-  color: var(--bg-color);
+  /* color: var(--bg-color); */
   margin: 0;
 }
 
