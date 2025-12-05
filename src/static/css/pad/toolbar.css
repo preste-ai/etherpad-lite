@@ -34,6 +34,12 @@
 .toolbar ul li {
   margin-top: 5px; /* when icons goes multi rows, have space betwwen each row */
 }
+.toolbar ul li:hover,
+.toolbar ul li a:hover,
+.toolbar ul li button:hover {
+  color: #9160a5 !important;
+}
+
 .toolbar ul li.separator {
   visibility: hidden;
   width: 10px;
