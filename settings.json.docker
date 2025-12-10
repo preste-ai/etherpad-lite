@@ -708,7 +708,10 @@
      "fileTypes": ["jpeg", "jpg", "png", "gif", "bmp", "webp"],
      "maxFileSize": 5000000
    },
+ "disableSpellcheck": false,
  "padOptions":{
   "lang":"fr-FR"
- }
+ },
+
+ "ep_page_view_default" : true,
 }
