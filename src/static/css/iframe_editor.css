@@ -61,6 +61,7 @@ html.inner-editor {
 }
 #innerdocbody.authorColors span {
   padding: 0px !important;
+  border-bottom: none !important;
 }
 option {
   text-transform: capitalize;
