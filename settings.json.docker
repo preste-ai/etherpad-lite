@@ -394,7 +394,7 @@
      * null, or by disabling session expiration (see sessionLifetime).
      */
     // 86400000 = 1d * 24h/d * 60m/h * 60s/m * 1000ms/s
-    "keyRotationInterval": "${COOKIE_KEY_ROTATION_INTERVAL:86400000}",
+    "keyRotationInterval": "${COOKIE_KEY_ROTATION_INTERVAL:null}",
 
     /*
      * Value of the SameSite cookie property. "Lax" is recommended unless
@@ -434,7 +434,7 @@
      * kept in the database forever.
      */
     // 864000000 = 10d * 24h/d * 60m/h * 60s/m * 1000ms/s
-    "sessionLifetime": "${COOKIE_SESSION_LIFETIME:864000000}",
+    "sessionLifetime": "${COOKIE_SESSION_LIFETIME:null}",
 
     /*
      * How long (in milliseconds) before the expiration time of an active user's
@@ -453,7 +453,7 @@
      * this to null.
      */
     // 86400000 = 1d * 24h/d * 60m/h * 60s/m * 1000ms/s
-    "sessionRefreshInterval": "${COOKIE_SESSION_REFRESH_INTERVAL:86400000}"
+    "sessionRefreshInterval": "${COOKIE_SESSION_REFRESH_INTERVAL:null}"
   },
 
   /*

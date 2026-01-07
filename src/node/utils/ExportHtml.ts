@@ -18,6 +18,7 @@ import {MapArrayType} from "../types/MapType";
  * limitations under the License.
  */
 
+import log4js from 'log4js';
 import {deserializeOps, splitAttributionLines, subattribution} from '../../static/js/Changeset';
 const attributes = require('../../static/js/attributes');
 const padManager = require('../db/PadManager');
@@ -30,6 +31,8 @@ const _encodeWhitespace = require('./ExportHelper')._encodeWhitespace;
 import padutils from "../../static/js/pad_utils";
 import {StringIterator} from "../../static/js/StringIterator";
 import {StringAssembler} from "../../static/js/StringAssembler";
+
+const logger = log4js.getLogger('ExportHtml');
 
 const getPadHTML = async (pad: PadType, revNum: string) => {
   let atext = pad.atext;
@@ -105,7 +108,7 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
              '}\n';
       }
     }
-
+    
     css += '</style>';
   }
 
@@ -125,7 +128,21 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
     }
   });
 
-  const getLineHTML = (text: string, attribs: string[]) => {
+  // Helper function to extract table info from a line
+  const getTableInfo = (attribLine: string) => {
+    // @ts-ignore
+    const ops = deserializeOps(attribLine);
+    for (const o of ops) {
+      for (const a of attributes.decodeAttribString(o.attribs)) {
+        if (apool?.numToAttrib[a] && apool.numToAttrib[a][0] === 'tbljson') {
+          return JSON.parse(apool.numToAttrib[a][1]);
+        }
+      }
+    }
+    return null;
+  };
+
+  const getLineHTML = (text: string, attribs: string[], isTableLine: boolean = false) => {
     // Use order of tags (b/i/u) as order of nesting, for simplicity
     // and decent nesting.  For example,
     // <b>Just bold<b> <b><i>Bold and italics</i></b> <i>Just italics</i>
@@ -134,6 +151,26 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
     const taker = new StringIterator(text);
     const assem = new StringAssembler();
     const openTags:string[] = [];
+
+    const processTableLine = (lineText: string, tbljson: any) => {
+      // Process the table line and its attributes
+      const colNum = tbljson.cols;
+      let cells = lineText.split('␟'); // using the special character as cell separator
+      let cellWidths = tbljson.columnWidths; // array of widths
+      let rowHtml = '<tr>';
+      if (cells.length > colNum) {
+        // sometimes there is an extra empty cell at the end, remove it
+        cells = cells.slice(0, colNum);
+      }
+      cells.forEach((cell: string, index: number) => {
+        const cellWidth = cellWidths[index] ? `width:${cellWidths[index]}px;` : '';
+        // Escape HTML in cell content
+        const escapedCell = Security.escapeHTML(cell);
+        rowHtml += `<td style="${cellWidth}">${escapedCell}</td>`;
+      });
+      rowHtml += '</tr>';
+      return rowHtml;
+    };
 
     const getSpanClassFor = (i: string) => {
       // return if author colors are disabled
@@ -214,15 +251,62 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
 
       // this iterates over every op string and decides which tags to open or to close
       // based on the attribs used
+      // logger.info("anumMap:", anumMap);
       for (const o of ops) {
         const usedAttribs:string[] = [];
-
-        // mark all attribs as used
+        let isTableLine = false;
+        let tableHtml = '';
+        // logger.info("op:", o);
+        // mark all attribs as used and check for table
         for (const a of attributes.decodeAttribString(o.attribs)) {
+          // logger.info("a:", a);
+          // logger.info("anumMap[a]:", anumMap[a]);
+          // logger.info("apool.numToAttrib[a]:", apool.numToAttrib[a]);
+          // logger.info("text:", text);
+          // logger.info("chars:", o.chars);
+          // // logger.info("taker.take(chars):", taker.take(o.chars));
+          if (apool?.numToAttrib[a] && apool.numToAttrib[a][0] === 'pagebreak') {
+            // Insert a page break
+            assem.append('<br style="page-break-before: always;">');
+          }
+
+          if (apool?.numToAttrib[a] && apool.numToAttrib[a][0] === 'tbljson') {
+            isTableLine = true;
+            tableHtml = processTableLine(text, JSON.parse(apool.numToAttrib[a][1]));
+          }
           if (a in anumMap) {
             usedAttribs.push(String(anumMap[a])); // i = 0 => bold, etc.
+            // logger.info("usedAttribs push:", String(anumMap[a]));
           }
         }
+
+        // If this is a table line, append the table HTML directly and skip normal processing
+        if (isTableLine) {
+          // Get the actual text for this operation
+          let chars = o.chars;
+          if (o.lines) {
+            chars--; // exclude newline at end of line, if present
+          }
+          const cellText = taker.take(chars);
+          // Generate the actual table row HTML from the cell text
+          const cells = cellText.split('␟');
+          const tbljson = JSON.parse(apool.numToAttrib[attributes.decodeAttribString(o.attribs).find((a: any) => 
+            apool?.numToAttrib[a] && apool.numToAttrib[a][0] === 'tbljson'
+          )][1]);
+          const colNum = tbljson.cols;
+          const cellWidths = tbljson.columnWidths;
+          let rowHtml = '<tr>';
+          const cellsToUse = cells.length > colNum ? cells.slice(0, colNum) : cells;
+          cellsToUse.forEach((cell: string, index: number) => {
+            const cellWidth = cellWidths[index] ? `width:${cellWidths[index]}px;` : '';
+            const escapedCell = Security.escapeHTML(cell);
+            rowHtml += `<td style="${cellWidth} border: 2px solid black; padding: 8px;">${escapedCell}</td>`;
+          });
+          rowHtml += '</tr>';
+          assem.append(rowHtml);
+          continue; // Skip to next op
+        }
+
         let outermostTag = -1;
         // find the outer most open tag that is no longer used
         for (let i = openTags.length - 1; i >= 0; i--) {
@@ -290,6 +374,11 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
     }
     processNextChars(text.length - idx);
 
+    // If this is a table line, don't process spaces as it will break HTML tags
+    if (isTableLine) {
+      return assem.toString();
+    }
+    
     return _processSpaces(assem.toString());
   };
   // end getLineHTML
@@ -309,10 +398,26 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
   }
 
   let openLists: openList[] = [];
+  
+  // Track open tables
+  let currentTableId: string | null = null;
+  
   for (let i = 0; i < textLines.length; i++) {
+    // Check if this line is part of a table
+    const tableInfo = getTableInfo(attribLines[i]);
+    const nextTableInfo = i + 1 < textLines.length ? getTableInfo(attribLines[i + 1]) : null;
+    
+    // Open table if this is the first row
+    if (tableInfo && tableInfo.row === 0) {
+      currentTableId = tableInfo.tblId;
+      pieces.push(`<table id="${currentTableId}" border="1" style="border-collapse: collapse; border: 2px solid black;"><tbody>`);
+    }
+    
     let context;
     const line = _analyzeLine(textLines[i], attribLines[i], apool);
-    const lineContent = getLineHTML(line.text, line.aline);
+    const lineContent = getLineHTML(line.text, line.aline, !!tableInfo);
+    // logger.info("lineContent for line", i, ":", lineContent);
+    
     // If we are inside a list
     if (line.listLevel) {
       context = {
@@ -466,10 +571,58 @@ const getHTMLFromAtext = async (pad:PadType, atext: AText, authorColors?: string
         attribLine: attribLines[i],
         text: textLines[i],
         padId: pad.id,
+        hasFloatingImage: false,
       };
 
-      await hooks.aCallAll('getLineHTMLForExport', context);
-      pieces.push(context.lineContent, '<br>');
+      // Only call the hook for non-table lines, as the hook replaces lineContent with raw text
+      if (!tableInfo) {
+        await hooks.aCallAll('getLineHTMLForExport', context);
+        // logger.info("After hook, lineContent:", context.lineContent);
+        const imageTagIndexStart = context.lineContent.indexOf('<img');
+        const imageTagIndexEnd = context.lineContent.indexOf('>', imageTagIndexStart);
+        if (imageTagIndexStart !== -1 && imageTagIndexEnd !== -1) {
+          // remove any trailing whitespace/newlines around the image tag for accurate checking
+          const textBeforeImage = context.lineContent.substring(0, imageTagIndexStart).replace(/[\s\n]+$/,'').trim();
+          const textAfterImage = context.lineContent.substring(imageTagIndexEnd + 1).replace(/^[\s\n]+/,'').trim();
+          // logger.info("textBeforeImage:", textBeforeImage);
+          // logger.info("textAfterImage:", textAfterImage);
+          // logger.info("context.lineContent:", context.lineContent);
+          // If there is text before or after the image tag, we consider it a floating image
+          if (textBeforeImage.search(/[a-zA-Z0-9]/) !== -1 || textAfterImage.search(/[a-zA-Z0-9]/) !== -1) {
+            let tableTag = `<table style="width:100%;"><tr>`;
+            // make sure that text fills the cells properly
+            if (textBeforeImage.search(/[a-zA-Z0-9]/) !== -1) {
+              tableTag += `<td style="width:50%; vertical-align: top; word-wrap: break-word;">${textBeforeImage}</td>`;
+              tableTag += `<td style="width:50%; vertical-align: top;">${context.lineContent.substring(imageTagIndexStart, imageTagIndexEnd + 1)}</td>`;
+            } else if (textAfterImage.search(/[a-zA-Z0-9]/) !== -1) {
+              tableTag += `<td style="width:50%; vertical-align: top;">${context.lineContent.substring(imageTagIndexStart, imageTagIndexEnd + 1)}</td>`;
+              tableTag += `<td style="width:50%; vertical-align: top; word-wrap: break-word;">${textAfterImage}</td>`;
+            }
+            tableTag += `</tr></table>`;
+            context.lineContent = tableTag;
+          }
+        }          
+
+      }
+
+      // Add these loggers
+      // logger.info("Line", i, "text:", JSON.stringify(textLines[i]));
+      // logger.info("Line", i, "lineContent:", context.lineContent);
+      
+      // If this is a table line, don't add <br>
+      if (tableInfo || context.hasFloatingImage === true) {
+        pieces.push(context.lineContent);
+      } else{
+        pieces.push(context.lineContent, '<br>');
+      }
+    }
+    
+    // Close table if next line is not part of the same table
+    if (tableInfo && currentTableId) {
+      if (!nextTableInfo || nextTableInfo.tblId !== currentTableId) {
+        pieces.push('</tbody></table>');
+        currentTableId = null;
+      }
     }
   }
 
@@ -480,17 +633,31 @@ exports.getPadHTMLDocument = async (padId: string, revNum: string, readOnlyId: n
   const pad = await padManager.getPad(padId);
 
   // Include some Styles into the Head for Export
-  let stylesForExportCSS = '';
+  let stylesForExportCSS = `
+    /* Better image handling */
+    img { 
+      max-width: 100%; 
+      height: auto;
+      vertical-align: middle; 
+    }
+    /* Preserve inline layout for images with text */
+    img + * {
+      display: inline;
+    }
+    body { font-family: Arial; font-size: 14pt; }
+  `;
   const stylesForExport: string[] = await hooks.aCallAll('stylesForExport', padId);
   stylesForExport.forEach((css) => {
     stylesForExportCSS += css;
   });
 
   let html = await getPadHTML(pad, revNum);
-
+  // logger.info("html", html);
   for (const hookHtml of await hooks.aCallAll('exportHTMLAdditionalContent', {padId})) {
+    // logger.info("hookHtml", hookHtml);
     html += hookHtml;
   }
+  // logger.info("stylesForExportCSS", stylesForExportCSS);
 
   return eejs.require('ep_etherpad-lite/templates/export_html.html', {
     body: html,
@@ -507,10 +674,13 @@ const _processSpaces = (s: string) => {
     return s.replace(/ /g, '&nbsp;');
   }
   const parts = [];
+  // logger.info("_processSpaces input:", s);
   s.replace(/<[^>]*>?| |[^ <]+/g, (m) => {
+    // logger.info("_processSpaces part:", m);
     parts.push(m);
     return m
   });
+  // logger.info("_processSpaces parts:", parts);
   if (doesWrap) {
     let endOfLine = true;
     let beforeSpace = false;

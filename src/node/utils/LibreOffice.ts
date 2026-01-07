@@ -108,9 +108,10 @@ exports.convertFile = async (srcFile: string, destFile: string, type:string) => 
   // we need to convert to odt first, then to doc
   // to avoid `Error: no export filter for /tmp/xxxx.doc` error
   if (type === 'doc') {
-    const intermediateFile = destFile.replace(/\.doc$/, '.odt');
-    await queue.pushAsync({srcFile, destFile: intermediateFile, type: 'odt', fileExtension: 'odt'});
-    await queue.pushAsync({srcFile: intermediateFile, destFile, type, fileExtension});
+    // const intermediateFile = destFile.replace(/\.doc$/, '.odt');
+    // await queue.pushAsync({srcFile, destFile: intermediateFile, type: 'odt', fileExtension: 'odt'});
+    // await queue.pushAsync({srcFile: intermediateFile, destFile, type, fileExtension});
+    await queue.pushAsync({srcFile, destFile, type: 'docx:MS Word 2007 XML', fileExtension: 'docx'});
   } else {
     await queue.pushAsync({srcFile, destFile, type, fileExtension});
   }
