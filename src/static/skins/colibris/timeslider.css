@@ -56,7 +56,10 @@
   /* color: var(--bg-color); */
   margin: 0;
 }
-
+.buttontext[data-l10n-id="timeslider.toolbar.returnbutton"]:hover {
+  color: #fff !important;
+  background-color: #9160a5 !important;
+}
 #editbar {
   display: block;
   padding-bottom: 5px;
