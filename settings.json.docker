@@ -708,7 +708,7 @@
      "fileTypes": ["jpeg", "jpg", "png", "gif", "bmp", "webp"],
      "maxFileSize": 5000000
    },
- "disableSpellcheck": false,
+
  "padOptions":{
   "lang":"fr-FR"
  },

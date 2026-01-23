@@ -39,7 +39,9 @@
 .toolbar ul li button:hover {
   color: #9160a5 !important;
 }
-
+.toolbar ul li button:hover svg {
+  stroke: #9160a5 !important;
+}
 .toolbar ul li.separator {
   visibility: hidden;
   width: 10px;

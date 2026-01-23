@@ -284,7 +284,7 @@ const Ace2Editor = function () {
     // <body> tag
     innerDocument.body.id = 'innerdocbody';
     innerDocument.body.classList.add('innerdocbody');
-    innerDocument.body.setAttribute('spellcheck', 'false');
+    innerDocument.body.setAttribute('spellcheck', 'true');
     innerDocument.body.appendChild(innerDocument.createTextNode('\u00A0')); // &nbsp;
 /*
     debugLog('Ace2Editor.init() waiting for require kernel load');
