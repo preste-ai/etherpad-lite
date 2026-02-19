@@ -80,6 +80,52 @@ option {
 #innerdocbody h4 span {
   padding-top: 0;
 }
+#innerdocbody h1 {
+  font-size: 2em !important;
+}
+#innerdocbody h1 > span {
+  font-size: 2em !important;
+}
+
+#innerdocbody h1 span,
+#innerdocbody h2 span,
+#innerdocbody h3 span,
+#innerdocbody h4 span,
+#innerdocbody h5 span,
+#innerdocbody h6 span {
+  line-height: 1.5em !important;
+}
+
+#innerdocbody h2 > span {
+  font-size: 1.5em !important;
+}
+
+#innerdocbody h3 > span {
+  font-size: 1.17em !important;
+}
+
+#innerdocbody h5 > span {
+  font-size: 0.83em !important;
+}
+
+#innerdocbody h6 > span {
+  font-size: 0.75em !important;
+}
+#innerdocbody h2 > span {
+  font-size: 1.5em !important;
+}
+
+#innerdocbody h3 > span {
+  font-size: 1.17em !important;
+}
+
+#innerdocbody h5 > span {
+  font-size: 0.83em !important;
+}
+
+#innerdocbody h6 > span {
+  font-size: 0.75em !important;
+}
 
 /* --------------------- */
 /* -- BROWSER SUPPORT -- */
