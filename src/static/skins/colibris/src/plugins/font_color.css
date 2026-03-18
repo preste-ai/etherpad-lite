@@ -10,32 +10,33 @@
 }
 
 .color\:black,
-[data-color=black] {
-  color: #485365;
-  color: var(--text-color);
+[data-color="black"] {
+  /* color: #485365;
+  color: var(--text-color); */
+  color: #000;
 }
 
 .color\:red,
-[data-color=red] {
-  color: #F44336;
+[data-color="red"] {
+  color: #f44336;
 }
 
 .color\:green,
-[data-color=green] {
+[data-color="green"] {
   color: #66d29c;
 }
 
 .color\:blue,
-[data-color=blue] {
+[data-color="blue"] {
   color: #2196f3;
 }
 
 .color\:yellow,
-[data-color=yellow] {
+[data-color="yellow"] {
   color: #ffeb3b;
 }
 
 .color\:orange,
-[data-color=orange] {
-  color: #FF9800;
+[data-color="orange"] {
+  color: #ff9800;
 }
