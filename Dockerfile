@@ -107,6 +107,7 @@ RUN  \
         ca-certificates \
         curl \
         git \
+        font-liberation \
         ${INSTALL_ABIWORD:+abiword abiword-plugin-command} \
         ${INSTALL_SOFFICE:+libreoffice openjdk8-jre libreoffice-common}
 
@@ -197,6 +198,9 @@ fi
 # Copy the configuration file.
 COPY --chown=etherpad:etherpad ${SETTINGS} "${EP_DIR}"/settings.json
 
+# Copy APIKEY.txt.
+COPY --chown=etherpad:etherpad APIKEY.txt "${EP_DIR}"/APIKEY.txt
+
 # Fix group permissions
 # Note: For some reason increases image size from 257 to 334.
 # RUN chmod -R g=u .
@@ -208,3 +212,5 @@ HEALTHCHECK --interval=5s --timeout=3s \
 
 EXPOSE 9001
 CMD ["pnpm", "run", "prod"]
+# endless loop to keep the container running
+# CMD ["sh", "-c", "while true; do sleep 1000; done"]

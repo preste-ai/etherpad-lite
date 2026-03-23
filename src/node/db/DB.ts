@@ -37,6 +37,10 @@ exports.db = null;
  * Initializes the database with the settings provided by the settings module
  */
 exports.init = async () => {
+  // If production and ssl is enabled, we need to set rejectUnauthorized to false to allow self-signed certificates
+  if (process.env.ENV_NAME === 'production') {
+    settings.dbSettings.ssl = {rejectUnauthorized: false};
+  }
   exports.db = new Database(settings.dbType, settings.dbSettings, null, logger);
   await exports.db.init();
   if (exports.db.metrics != null) {

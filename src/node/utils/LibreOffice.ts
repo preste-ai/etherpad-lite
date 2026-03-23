@@ -113,6 +113,6 @@ exports.convertFile = async (srcFile: string, destFile: string, type:string) => 
     // await queue.pushAsync({srcFile: intermediateFile, destFile, type, fileExtension});
     await queue.pushAsync({srcFile, destFile, type: 'docx:MS Word 2007 XML', fileExtension: 'docx'});
   } else {
-    await queue.pushAsync({srcFile, destFile, type, fileExtension});
+    await queue.pushAsync({srcFile, destFile, type: 'pdf:writer_pdf_Export', fileExtension: 'pdf'});
   }
 };
