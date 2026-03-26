@@ -30,7 +30,7 @@ html.inner-editor {
   overflow: hidden;
   background-color: white;
   /* line-height: 1.6; */
-  line-height: 1.5;
+  line-height: 1.7;
   /* Be careful editing following rules. Longs words should not overflow, ep_align justify should work,
      Test on chrome, firefox and safari... Copy / Paste a word inside a sentence should not add line-breaks
      and preserve the style */
