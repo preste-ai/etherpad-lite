@@ -440,54 +440,69 @@ const pad = {
 
     const postAceInit = () => {
       padeditbar.init();
+
       setTimeout(() => {
         padeditor.ace.focus();
       }, 0);
+
       const optionsStickyChat = $("#options-stickychat");
+
       optionsStickyChat.on("click", () => {
         chat.stickToScreen();
       });
-      // if we have a cookie for always showing chat then show it
-      if (padcookie.getPref("chatAlwaysVisible")) {
-        chat.stickToScreen(true); // stick it to the screen
-        optionsStickyChat.prop("checked", true); // set the checkbox to on
-      }
-      // if we have a cookie for always showing chat then show it
-      if (padcookie.getPref("chatAndUsers")) {
-        chat.chatAndUsers(true); // stick it to the screen
-        $("#options-chatandusers").prop("checked", true); // set the checkbox to on
-      }
-      if (padcookie.getPref("showAuthorshipColors") === false) {
-        pad.changeViewOption("showAuthorColors", false);
-      }
-      if (padcookie.getPref("showLineNumbers") === false) {
-        pad.changeViewOption("showLineNumbers", false);
-      }
-      if (padcookie.getPref("rtlIsTrue") === true) {
-        pad.changeViewOption("rtlIsTrue", true);
-      }
-      pad.changeViewOption("padFontFamily", padcookie.getPref("padFontFamily"));
-      $("#viewfontmenu").val(padcookie.getPref("padFontFamily")).niceSelect("update");
 
-      // Prevent sticky chat or chat and users to be checked for mobiles
+      // ✅ SAFE PREF ACCESS
+      const hasPrefs = padcookie && typeof padcookie.getPref === "function";
+
+      if (hasPrefs) {
+        if (padcookie.getPref("chatAlwaysVisible")) {
+          chat.stickToScreen(true);
+          optionsStickyChat.prop("checked", true);
+        }
+
+        if (padcookie.getPref("chatAndUsers")) {
+          chat.chatAndUsers(true);
+          $("#options-chatandusers").prop("checked", true);
+        }
+
+        if (padcookie.getPref("showAuthorshipColors") === false) {
+          pad.changeViewOption("showAuthorColors", false);
+        }
+
+        if (padcookie.getPref("showLineNumbers") === false) {
+          pad.changeViewOption("showLineNumbers", false);
+        }
+
+        if (padcookie.getPref("rtlIsTrue") === true) {
+          pad.changeViewOption("rtlIsTrue", true);
+        }
+
+        const font = padcookie.getPref("padFontFamily");
+        if (font) {
+          pad.changeViewOption("padFontFamily", font);
+          $("#viewfontmenu").val(font).niceSelect("update");
+        }
+      }
+
+      // Prevent sticky chat or chat and users on mobile
       const checkChatAndUsersVisibility = (x) => {
         if (x.matches) {
-          // If media query matches
           $("#options-chatandusers:checked").trigger("click");
           $("#options-stickychat:checked").trigger("click");
         }
       };
+
       const mobileMatch = window.matchMedia("(max-width: 800px)");
-      mobileMatch.addListener(checkChatAndUsersVisibility); // check if window resized
+      mobileMatch.addListener(checkChatAndUsersVisibility);
+
       setTimeout(() => {
         checkChatAndUsersVisibility(mobileMatch);
-      }, 0); // check now after load
+      }, 0);
 
       $("#editorcontainer").addClass("initialized");
 
       hooks.aCallAll("postAceInit", { ace: padeditor.ace, clientVars, pad });
     };
-
     // order of inits is important here:
     padimpexp.init(this);
     padsavedrevs.init(this);

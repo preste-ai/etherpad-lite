@@ -1,5 +1,5 @@
 // @ts-nocheck
-'use strict';
+"use strict";
 
 /**
  * Copyright 2009 Google Inc.
@@ -17,11 +17,11 @@
  * limitations under the License.
  */
 
-import {Cookies} from "./pad_utils";
+import { Cookies } from "./pad_utils";
 
-exports.padcookie = new class {
+exports.padcookie = new (class {
   constructor() {
-    this.cookieName_ = window.location.protocol === 'https:' ? 'prefs' : 'prefsHttp';
+    this.cookieName_ = window.location.protocol === "https:" ? "prefs" : "prefsHttp";
   }
 
   init() {
@@ -31,14 +31,14 @@ exports.padcookie = new class {
     delete prefs.colorId;
     this.writePrefs_(prefs);
     // Re-read the saved cookie to test if cookies are enabled.
-    if (this.readPrefs_() == null) {
-      $.gritter.add({
-        title: 'Error',
-        text: html10n.get('pad.noCookie'),
-        sticky: true,
-        class_name: 'error',
-      });
-    }
+    // if (this.readPrefs_() == null) {
+    //   $.gritter.add({
+    //     title: "Error",
+    //     text: html10n.get("pad.noCookie"),
+    //     sticky: true,
+    //     class_name: "error",
+    //   });
+    // }
   }
 
   readPrefs_() {
@@ -52,10 +52,14 @@ exports.padcookie = new class {
   }
 
   writePrefs_(prefs) {
-    Cookies.set(this.cookieName_, JSON.stringify(prefs), {expires: 365 * 100});
+    Cookies.set(this.cookieName_, JSON.stringify(prefs), { expires: 365 * 100 });
   }
 
+  // getPref(prefName) {
+  //   return this.readPrefs_()[prefName];
+  // }
   getPref(prefName) {
+    if (!this.readPrefs_()) return null;
     return this.readPrefs_()[prefName];
   }
 
@@ -68,4 +72,4 @@ exports.padcookie = new class {
   clear() {
     this.writePrefs_({});
   }
-}();
+})();
