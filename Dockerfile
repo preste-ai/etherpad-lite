@@ -6,7 +6,7 @@
 ARG BUILD_ENV=git
 
 FROM node:lts-alpine AS adminbuild
-RUN npm install -g pnpm@latest
+RUN npm install -g pnpm@10.33.4
 WORKDIR /opt/etherpad-lite
 COPY . .
 RUN pnpm install
